@@ -3,7 +3,7 @@ Inspired by devSparkle's Overture module, Atlas was crafted to simplify the deve
 
 ## Guide
 
-In order to get started get a copy from [releases tab](https://github.com/SCPFBluesky/Atlas-Framework/releases/tag/Atlas) and download the RBXM and insert it into any service, recommended ReplicatedStorage
+In order to get started get a copy from [releases tab](https://github.com/SCPFBluesky/Atlas-Framework/releases/tag/Atlas) and download the RBXM and insert it into any service (that client and server can acesss), recommended ReplicatedStorage
 then simply just require it into your script as shown below:
 ```lua
 local Atlas = require(game.ReplicatedStorage.Atlas)
