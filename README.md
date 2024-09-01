@@ -8,4 +8,4 @@ then simply just require it into your script as shown below:
 ```lua
 local Atlas = require(game.ReplicatedStorage.Atlas)
 ```
-Then please read the [API](https://scpfbluesky.github.io/AtlasFramework/)
+Then please read the [API](https://scpfbluesky.github.io/AtlasFramework/api/Atlas)
