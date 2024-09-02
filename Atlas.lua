@@ -72,7 +72,7 @@ function Framework:GetObject(ObjectName: string, Timeout: number?): Instance?
 	ObjectName = SanitizeName(ObjectName)
 	local StartTime = tick()
 	local Objects
-	local Tries = 9
+	local Tries = 30
 	local Attempt = 0
 
 	repeat
