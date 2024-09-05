@@ -9,8 +9,13 @@
     ttps://github.com/SCPFBluesky/Atlas-Framework/tree/main
 ]]
 
---!strict
+--!nocheck
 --!native
+
+
+warn("This game uses Atlas framework, for more information please vist https://github.com/SCPFBluesky/Atlas-Framework/tree/main")
+-- remove if u hate credits ^
+
 local CollectionService = game:GetService("CollectionService")
 local HttpService = game:GetService("HttpService")
 
