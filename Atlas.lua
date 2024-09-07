@@ -6,18 +6,29 @@
     ClassName : ModuleScript
     RunTime: Shared
     Description: 
-    ttps://github.com/SCPFBluesky/Atlas-Framework/tree/main
+    Heavily inspired by devSparkle's Overture module.
+    The Atlas module is designed to make roblox devloper's life more easier with plenty of features
+    like
+    GetObjects
+    LoadLibrary
+    New
+    BindToTag
+    and more!
+    
+    For more information and useage documentation please visit : https://github.com/SCPFBluesky/Atlas-Framework/tree/main
 ]]
 
 --!nocheck
 --!native
 
-
 warn("This game uses Atlas framework, for more information please vist https://github.com/SCPFBluesky/Atlas-Framework/tree/main")
 -- remove if u hate credits ^
 
+
 local CollectionService = game:GetService("CollectionService")
 local HttpService = game:GetService("HttpService")
+local ObjectCache = {}
+local RunService = game:GetService("RunService")
 
 type FrameworkType = {
 	LoadLibrary: (self: FrameworkType, ModuleName: string) -> any?,
@@ -76,24 +87,30 @@ end
 function Framework:GetObject(ObjectName: string, Timeout: number?): Instance?
 	ObjectName = SanitizeName(ObjectName)
 	local StartTime = tick()
-	local Objects
-	local Tries = 30
+	local Tries = 40
 	local Attempt = 0
+
+	if ObjectCache[ObjectName] then
+		return ObjectCache[ObjectName]
+	end
 
 	repeat
 		Attempt = Attempt + 1
-		Objects = CollectionService:GetTagged("Framework")
+		local Objects = CollectionService:GetTagged("Framework")
+		local FoundObject = false
+
 		if #Objects == 0 then
 			warn("Attempt " .. Attempt .. ": No objects found with the 'Framework' tag.")
 		else
-			local FoundObject = false
 			for _, Obj in ipairs(Objects) do
 				if Obj.Name:lower() == ObjectName then
+					ObjectCache[ObjectName] = Obj
 					return Obj
 				end
 			end
+
 			if not FoundObject then
---				warn("Attempt " .. Attempt .. ": No object found with the name '" .. ObjectName .. "'.")
+				warn("Attempt " .. Attempt .. ": No object found with the name '" .. ObjectName .. "'.")
 			end
 		end
 
@@ -102,7 +119,7 @@ function Framework:GetObject(ObjectName: string, Timeout: number?): Instance?
 			break
 		end
 
-		game["Run Service"].Heartbeat:Wait()
+		RunService.Heartbeat:Wait(Attempt * 0.2)
 	until Attempt >= Tries
 
 	warn("Object '" .. ObjectName .. "' not found after " .. Tries .. " attempts.")
@@ -178,7 +195,6 @@ function Framework:LogOperation(Operation: string, Details: DetailsType)
 
 	Details = Details or {}
 	for Key, Value in pairs(Details) do
-		-- Removed debug logs
 	end
 end
 
