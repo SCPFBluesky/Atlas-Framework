@@ -18,7 +18,7 @@
     For more information and useage documentation please visit : https://github.com/SCPFBluesky/Atlas-Framework/tree/main
 ]]
 
---!nocheck
+--!strict
 --!native
 
 warn("This game uses Atlas framework, for more information please vist https://github.com/SCPFBluesky/Atlas-Framework/tree/main")
