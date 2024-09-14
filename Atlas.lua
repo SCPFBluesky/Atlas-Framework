@@ -22,7 +22,8 @@
     
     For detailed usage and documentation, please visit: https://github.com/SCPFBluesky/Atlas-Framework/tree/main
 ]]
-
+--!nocheck
+--!native
 local CollectionService = game:GetService("CollectionService")
 local HttpService = game:GetService("HttpService")
 
