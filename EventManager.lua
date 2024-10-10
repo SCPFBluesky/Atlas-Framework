@@ -4,13 +4,13 @@
 local CollectionService = game:GetService("CollectionService")
 local EventManager = {}
 
-function EventManager:BindToTag(Tag, Callback)
+@native function EventManager:BindToTag(Tag, Callback)
 	for _, instance in ipairs(CollectionService:GetTagged(Tag)) do
 		task.spawn(Callback, instance)
 	end
 	return CollectionService:GetInstanceAddedSignal(Tag):Connect(function(instance)
 		task.spawn(Callback, instance)
-	end)
-end
+	end);
+end;
 
 return EventManager
