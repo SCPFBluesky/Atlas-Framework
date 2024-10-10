@@ -4,20 +4,20 @@
 local CollectionService = game:GetService("CollectionService")
 local TagManager = {}
 
-function TagManager:TagObject(Object, Tag)
+@native function TagManager:TagObject(Object, Tag)
 	if not CollectionService:HasTag(Object, Tag) then
 		CollectionService:AddTag(Object, Tag)
-	end
-end
+	end;
+end;
 
-function TagManager:RemoveTag(Object, Tag)
+@native function TagManager:RemoveTag(Object, Tag)
 	if CollectionService:HasTag(Object, Tag) then
 		CollectionService:RemoveTag(Object, Tag)
-	end
-end
+	end;
+end;
 
-function TagManager:GetObjectsWithTag(Tag)
+@native function TagManager:GetObjectsWithTag(Tag)
 	return CollectionService:GetTagged(Tag)
-end
+end;
 
 return TagManager
