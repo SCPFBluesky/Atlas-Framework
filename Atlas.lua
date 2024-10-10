@@ -33,48 +33,50 @@ local Atlas = {}
 
 @native function Atlas:LoadLibrary(ModuleName)
 	return ObjectManager:LoadModule(ModuleName)
-end
+end;
 
 @native function Atlas:New(ClassName)
 	return ObjectManager:CreateObject(ClassName)
-end
+end;
 
 @native function Atlas:GetObject(ObjectName, Timeout)
 	return ObjectManager:GetObject(ObjectName, Timeout)
-end
+end;
 
 @native function Atlas:ApplySettings(Object, Settings)
 	ObjectManager:ApplySettings(Object, Settings)
-end
+end;
 
 @native function Atlas:TagObject(Object, Tag)
 	TagManager:TagObject(Object, Tag)
-end
+end;
 
 @native function Atlas:RemoveTag(Object, Tag)
 	TagManager:RemoveTag(Object, Tag)
-end
+end;
 
 @native function Atlas:BindToTag(Tag, Callback)
 	return EventManager:BindToTag(Tag, Callback)
-end
+end;
 
 @native function Atlas:GetObjectsWithTag(Tag)
 	return TagManager:GetObjectsWithTag(Tag)
-end
+end;
 
 @native function Atlas:ReloadModules()
 	return ObjectManager:ReloadModules()
-end
+end;
+
 @native function Atlas:ClearFrameworkTag(Tag)
 	return ObjectManager:ClearFrameworkTag()
-end
+end;
+
 @native function Atlas:LogOperation(Operation, Details)
 	Utility:LogOperation(Operation, Details)
-end
+end;
 
 @native function Atlas:GenerateUniqueId()
 	return Utility:GenerateUniqueId()
-end
+end;
 
 return Atlas
