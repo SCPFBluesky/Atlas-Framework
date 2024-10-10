@@ -21,18 +21,18 @@ local ModuleCache = {}
 local ObjectCache = {}
 
 -- load ObjectManager with settings
-function ObjectManager:new()
+@native function ObjectManager:new()
 	local instance = setmetatable({}, self)
 	return instance
-end
+end;
 
 -- Create an object with the "Framework" tag for simple stuf
-function ObjectManager:CreateObject(ClassName)
+@native function ObjectManager:CreateObject(ClassName)
 	assert(type(ClassName) == "string", "ClassName must be a string")
 
 	local success, newObject = pcall(function()
 		return Instance.new(ClassName)
-	end)
+	end);
 
 	if success and newObject then
 		CollectionService:AddTag(newObject, "Framework")
@@ -40,11 +40,11 @@ function ObjectManager:CreateObject(ClassName)
 	else
 		warn(string.format("[Atlas/ObjectManager] Failed to create object of class '%s'", ClassName))
 		return nil
-	end
-end
+	end;
+end;
 
 -- Load the module
-function ObjectManager:LoadModule(ModuleName)
+@native function ObjectManager:LoadModule(ModuleName)
 	assert(type(ModuleName) == "string", "ModuleName must be a string")
 
 	-- Check the cache first
@@ -57,21 +57,21 @@ function ObjectManager:LoadModule(ModuleName)
 		if module:IsA("ModuleScript") and module.Name:lower() == ModuleName:lower() then
 			local success, result = pcall(function()
 				return require(module)
-			end)
+			end);
 			if success then
 				ModuleCache[ModuleName:lower()] = result
 				return result
 			else
 				warn(string.format("[Atlas/ObjectManager] Failed to load module '%s': %s", ModuleName, result))
 				return nil
-			end
-		end
-	end
+			end;
+		end;
+	end;
 	warn(string.format("[Atlas/ObjectManager] Module '%s' not found", ModuleName))
 	return nil
-end
+end;
 
-function ObjectManager:GetObject(ObjectName, Timeout)
+@native function ObjectManager:GetObject(ObjectName, Timeout)
 	assert(type(ObjectName) == "string", "ObjectName must be a string")
 	assert(Timeout == nil or type(Timeout) == "number", "Timeout must be a number or nil")
 	local startTime = tick()
@@ -80,38 +80,38 @@ function ObjectManager:GetObject(ObjectName, Timeout)
 	local connection
 	if ObjectCache[ObjectName] then
 		return ObjectCache[ObjectName]
-	end
+	end;
 
 	
 
-	local function handleObjectFound(object)
+	@native local function handleObjectFound(object)
 		if object.Name == ObjectName then
 			ObjectCache[ObjectName] = object
 			objectFound = object
 			searchCompleted = true
 			warn(string.format("[Atlas/ObjectManager] Object '%s' was found after %.2f seconds.", ObjectName, tick() - startTime))
-		end
-	end
+		end;
+	end;
 
 	connection = CollectionService:GetInstanceAddedSignal("Framework"):Connect(function(object)
 		handleObjectFound(object)
-	end)
+	end);
 
-	local objects = CollectionService:GetTagged("Framework")
+	 local objects = CollectionService:GetTagged("Framework")
 	for _, object in ipairs(objects) do
 		handleObjectFound(object)
 		if objectFound then
 			connection:Disconnect() 
 			return objectFound
-		end
-	end
+		end;
+	end;
 
 	while not searchCompleted do
 		if Timeout and (tick() - startTime) >= Timeout then
 			warn(string.format("[Atlas/ObjectManager] Timeout reached while searching for object '%s' after %.2f seconds", ObjectName, Timeout))
 			connection:Disconnect()
 			return nil
-		end
+		end;
 
 		task.wait()
 
@@ -119,19 +119,19 @@ function ObjectManager:GetObject(ObjectName, Timeout)
 			connection:Disconnect()
 			warn(string.format("[Atlas/ObjectManager] Object '%s' was found after %.2f seconds.", ObjectName, tick() - startTime))
 			return ObjectCache[ObjectName]
-		end
-	end
+		end;
+	end;
 
 	connection:Disconnect()
 
 	if not objectFound then
 		warn(string.format("[Atlas/ObjectManager] Object '%s' was not found after %.2f seconds.", ObjectName, tick() - startTime))
-	end
+	end;
 
 	return objectFound
-end
+end;
 
-function ObjectManager:ApplySettings(Object, Settings)
+@native function ObjectManager:ApplySettings(Object, Settings)
 	assert(typeof(Object) == "Instance", "Object must be an Instance")
 	assert(type(Settings) == "table", "Settings must be a table")
 
@@ -139,24 +139,24 @@ function ObjectManager:ApplySettings(Object, Settings)
 		if Object:FindFirstChild(property) or Object[property] ~= nil then
 			local success, errorMessage = pcall(function()
 				Object[property] = value
-			end)
+			end);
 			if not success then
 				warn(string.format("[Atlas/ObjectManager] Failed to apply setting '%s' on object '%s': %s", property, Object.Name, errorMessage))
-			end
+			end;
 		else
 			warn(string.format("[Atlas/ObjectManager] Property '%s' does not exist on object '%s'", property, Object.Name))
-		end
-	end
-end
+		end;
+	end;
+end;
 
-function ObjectManager:ClearFrameworkTag()
+@native function ObjectManager:ClearFrameworkTag()
 	local objects = CollectionService:GetTagged("Framework")
 	for _, object in ipairs(objects) do
 		CollectionService:RemoveTag(object, "Framework")
-	end
-end
+	end;
+end;
 
-function ObjectManager:ReloadModules()
+@native function ObjectManager:ReloadModules()
 	ObjectCache = {}
 	local modules = CollectionService:GetTagged("FrameworkModule")
 	for _, module in ipairs(modules) do
@@ -164,14 +164,14 @@ function ObjectManager:ReloadModules()
 			local moduleName = module.Name:lower()
 			local success, result = pcall(function()
 				return require(module)
-			end)
+			end);
 			if success then
 				ModuleCache[moduleName] = result
 			else
 				warn(string.format("[Atlas/ObjectManager] Failed to reload module '%s': %s", module.Name, result))
-			end
-		end
-	end
-end
+			end;
+		end;
+	end;
+end;
 
 return ObjectManager
