@@ -31,49 +31,49 @@ local Utility = require(script.Utility)
 
 local Atlas = {}
 
-function Atlas:LoadLibrary(ModuleName)
+@native function Atlas:LoadLibrary(ModuleName)
 	return ObjectManager:LoadModule(ModuleName)
 end
 
-function Atlas:New(ClassName)
+@native function Atlas:New(ClassName)
 	return ObjectManager:CreateObject(ClassName)
 end
 
-function Atlas:GetObject(ObjectName, Timeout)
+@native function Atlas:GetObject(ObjectName, Timeout)
 	return ObjectManager:GetObject(ObjectName, Timeout)
 end
 
-function Atlas:ApplySettings(Object, Settings)
+@native function Atlas:ApplySettings(Object, Settings)
 	ObjectManager:ApplySettings(Object, Settings)
 end
 
-function Atlas:TagObject(Object, Tag)
+@native function Atlas:TagObject(Object, Tag)
 	TagManager:TagObject(Object, Tag)
 end
 
-function Atlas:RemoveTag(Object, Tag)
+@native function Atlas:RemoveTag(Object, Tag)
 	TagManager:RemoveTag(Object, Tag)
 end
 
-function Atlas:BindToTag(Tag, Callback)
+@native function Atlas:BindToTag(Tag, Callback)
 	return EventManager:BindToTag(Tag, Callback)
 end
 
-function Atlas:GetObjectsWithTag(Tag)
+@native function Atlas:GetObjectsWithTag(Tag)
 	return TagManager:GetObjectsWithTag(Tag)
 end
 
-function Atlas:ReloadModules()
+@native function Atlas:ReloadModules()
 	return ObjectManager:ReloadModules()
 end
-function Atlas:ClearFrameworkTag(Tag)
+@native function Atlas:ClearFrameworkTag(Tag)
 	return ObjectManager:ClearFrameworkTag()
 end
-function Atlas:LogOperation(Operation, Details)
+@native function Atlas:LogOperation(Operation, Details)
 	Utility:LogOperation(Operation, Details)
 end
 
-function Atlas:GenerateUniqueId()
+@native function Atlas:GenerateUniqueId()
 	return Utility:GenerateUniqueId()
 end
 
