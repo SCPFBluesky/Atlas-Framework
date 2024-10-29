@@ -1,4 +1,4 @@
-As of 10/1/24 Atlas has been re-written some data below might be outdated, I will update as soon as posible
+As of 10/1/24 Atlas has been re-written some data below might be outdated, I will update as soon as possible
 # Atlas-Framework
 Inspired by devSparkle's Overture module, Atlas was crafted to simplify the development of Roblox games, with this module with plenty of features.
 
