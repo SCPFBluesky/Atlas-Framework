@@ -1,3 +1,5 @@
+# As of 12/6/24 I no longer use the Atlas Framework myself, and this will be discontuined and no longer maintained as this is old work and it sucks. I will make a new one eventually. 
+
 As of 10/1/24 Atlas has been re-written some data below might be outdated, I will update as soon as possible
 # Atlas-Framework
 Inspired by devSparkle's Overture module, Atlas was crafted to simplify the development of Roblox games, with this module with plenty of features.
